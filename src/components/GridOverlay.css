@@ -1,0 +1,97 @@
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.grid-columns {
+  position: absolute;
+  inset: 0;
+}
+
+.grid-column {
+  background: rgba(255, 0, 80, 0.08);
+  border-left: 1px solid rgba(255, 0, 80, 0.2);
+  border-right: 1px solid rgba(255, 0, 80, 0.2);
+  height: 100%;
+  position: relative;
+}
+
+.grid-col-label {
+  position: sticky;
+  top: 6px;
+  display: block;
+  text-align: center;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: rgba(255, 0, 80, 0.7);
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.grid-margin {
+  background: rgba(0, 120, 255, 0.06);
+  height: 100%;
+}
+
+.grid-baseline {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 7px,
+    rgba(255, 0, 80, 0.08) 7px,
+    rgba(255, 0, 80, 0.08) 8px
+  );
+}
+
+/* ── Center lines ── */
+
+.grid-center-h {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(0, 220, 180, 0.6);
+  transform: translateY(-0.5px);
+}
+
+.grid-center-v {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(0, 220, 180, 0.6);
+  transform: translateX(-0.5px);
+}
+
+/* ── Row numbers ── */
+
+.grid-rows {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.grid-row-label {
+  position: absolute;
+  left: 2px;
+  font-family: 'Press Start 2P', monospace;
+  line-height: 1;
+  transform: translateY(-50%);
+  white-space: nowrap;
+}
+
+.grid-row-label.major {
+  font-size: 6px;
+  color: rgba(0, 120, 255, 0.8);
+}
+
+.grid-row-label.minor {
+  font-size: 4px;
+  color: rgba(0, 120, 255, 0.3);
+}
