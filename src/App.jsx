@@ -117,6 +117,9 @@ function App() {
               })}
             </div>
 
+            {/* ── Select button ── */}
+            <button className={`select-btn${colorVisible ? ` companion-${active.id}` : ''}`}>SELECT</button>
+
             {/* ── Info panel ── */}
             <div className={`info-panel${colorVisible ? ` companion-${active.id}` : ''}`}>
               <h2 className="info-name">{active.name}</h2>

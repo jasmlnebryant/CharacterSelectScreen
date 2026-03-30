@@ -306,6 +306,37 @@
   color: #b0813e;
 }
 
+/* ── Select button ──────────────────────────────── */
+
+.select-btn {
+  position: absolute;
+  top: 760px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%) scale(0.8);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 17px;
+  color: #f0f0f0;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  border-radius: 16px;
+  padding: 20px 30px;
+  width: calc(100% - 60px);
+  text-align: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 150ms ease-out;
+}
+
+.select-btn:hover {
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.select-btn.companion-vexor    { background: rgba(180, 144, 212, 0.4); }
+.select-btn.companion-atomix   { background: rgba(116, 196, 186, 0.4); }
+.select-btn.companion-archaeon { background: rgba(208, 171, 113, 0.4); }
+
 /* ── Back button ────────────────────────────────── */
 
 .back-btn {
