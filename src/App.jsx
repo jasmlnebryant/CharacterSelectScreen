@@ -3,6 +3,7 @@ import './App.css'
 import { companions } from './data/companions'
 import CompanionCard from './components/CompanionCard'
 import GridOverlay from './components/GridOverlay'
+import bgImage from './assets/background.png'
 
 function getPosition(index, activeIndex, total) {
   if (index === activeIndex) return 'center'
@@ -53,13 +54,13 @@ function App() {
 
       <div className="phone-frame">
         <div className="screen">
-          <div className="screen-bg" />
+          <div className="screen-bg" style={{ backgroundImage: `url(${bgImage})` }} />
           <GridOverlay visible={gridVisible} />
 
           <div className="screen-content">
             <header className="screen-header">
               <h1 className="screen-title">
-                Choose who will<br />you learn with
+                Choose who you<br />will learn with
               </h1>
             </header>
 
