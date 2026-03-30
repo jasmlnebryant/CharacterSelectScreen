@@ -28,7 +28,9 @@
   cursor: default;
 }
 
-.companion-card.position-center .card-info {
+.companion-card.position-center .card-info,
+.companion-card.position-left .card-info,
+.companion-card.position-right .card-info {
   display: none;
 }
 
@@ -36,7 +38,9 @@
   justify-content: center;
 }
 
-.companion-card.position-center .card-image-wrap {
+.companion-card.position-center .card-image-wrap,
+.companion-card.position-left .card-image-wrap,
+.companion-card.position-right .card-image-wrap {
   margin: 10px;
   width: calc(100% - 20px);
 }
@@ -77,7 +81,7 @@
 
 .card-initial {
   font-family: 'Press Start 2P', monospace;
-  font-size: 28px;
+  font-size: 29px;
   color: rgba(255, 255, 255, 0.8);
   line-height: 0;
   display: block;

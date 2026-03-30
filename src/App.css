@@ -95,7 +95,7 @@
 
 .screen-header {
   position: absolute;
-  top: 344px;
+  top: 317px;
   transform: translateY(-100%);
   left: 0;
   right: 0;
@@ -105,11 +105,12 @@
 
 .screen-title {
   font-family: 'Press Start 2P', monospace;
-  font-size: 16px;
+  font-size: 17px;
   color: #f0f0f0;
   line-height: 1.33;
   text-transform: uppercase;
   letter-spacing: 0.03em;
+  text-align: center;
 }
 
 /* ── Carousel stage ─────────────────────────────── */
@@ -118,7 +119,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 327px;
+  top: 300px;
   height: 190px;
   display: flex;
   justify-content: center;
@@ -133,7 +134,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 510px;
+  top: 483px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -144,19 +145,21 @@
 
 .info-name {
   font-family: 'Press Start 2P', monospace;
-  font-size: 16px;
+  font-size: 17px;
   color: #f0f0f0;
   line-height: 1.4;
-  margin-bottom: 14px;
+  margin-bottom: 4px;
+  text-align: center;
 }
 
 .info-subject {
   font-family: system-ui, -apple-system, sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   color: #aaa;
   letter-spacing: 0.05em;
   margin-bottom: 4px;
+  text-align: center;
 }
 
 .info-sub-subjects {
@@ -165,21 +168,23 @@
   gap: 10px;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 14px;
+  margin-bottom: 24px;
 }
 
 .info-sub-subjects span {
   font-family: system-ui, -apple-system, sans-serif;
-  font-size: 10px;
+  font-size: 11px;
   color: #888;
+  text-align: center;
 }
 
 .info-flavor {
   font-family: system-ui, -apple-system, sans-serif;
-  font-size: 12px;
-  color: #999;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
   font-style: italic;
   line-height: 1.6;
+  text-align: center;
 }
 
 /* ── Back button ────────────────────────────────── */
