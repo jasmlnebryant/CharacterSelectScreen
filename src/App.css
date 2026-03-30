@@ -95,7 +95,7 @@
 
 .screen-header {
   position: absolute;
-  top: 317px;
+  top: 297px;
   transform: translateY(-100%);
   left: 0;
   right: 0;
@@ -134,7 +134,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 483px;
+  top: 503px;
   display: flex;
   flex-direction: column;
   align-items: center;

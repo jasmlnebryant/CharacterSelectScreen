@@ -9,7 +9,7 @@
 An interactive (touchable, swipeable, selectable) hero selection IOS app screen for Edumon, a gamified educational (completeing subject specific quizzes, defeating bosses, and leveling up characters in order to gain in-game as well as real life experience) app for American high school students (in the first pass). Players choose their learning companion (a digital sci-fi animal pet) before the experience begins -- this is the screen we are building.
 
 **Screen Title**
-*"Choose who will you learn with"*
+*"Choose who you will learn with"*
 
 **Mood**
 Cool, engaging, and snappy. Feels like a game, not a website. Designed for short attention spans — interactions are immediate and rewarding. For American high school students, "cool" can be described as Gen-Z meme culture, sports culture, & trendy/fun social connection.
@@ -49,6 +49,15 @@ The images of each companion will not be generated through you. I will provide t
 - 8-bit visual identity must be consistent throughout
 - Transitions must feel instant and reactive — never sluggish
 - Each hero must feel distinctly different in personality, not just name
+
+---
+
+## Production Pipeline
+1. **Monochromatic Silhouettes** Grey values only. Nail carousel rotation, text, and composition.
+2. **Base Colors** Create companion artwork. Apply per-subject palletes as well as silhouette contrast.
+3. **Animation** Companions will have an idle animation.
+4. **Customization** Companions colors can be chosen by the user. 
+5. **Polish & Post Effects** Users can futher customize their companions by choosing a name & personality (which will affect dialogue).
 
 ---
 
