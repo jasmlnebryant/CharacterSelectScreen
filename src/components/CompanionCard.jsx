@@ -5,6 +5,7 @@ function CompanionCard({ companion, position, colorVisible, visibilityMode, card
   return (
     <div
       className={`companion-card position-${position}${colorVisible && position === 'center' ? ` companion-${companion.id}` : ''}${isSilhouette ? ' is-silhouette' : ''}${!cardsVisible ? ' no-card' : ''}`}
+      data-companion={companion.id}
       onClick={onClick}
     >
       <div className="card-image-wrap">

@@ -26,6 +26,10 @@
   background: rgba(30, 0, 60, 0.35);
 }
 
+[data-companion="vexor"] .card-image {
+  scale: 1.15;
+}
+
 .companion-card.companion-atomix {
   background: rgba(0, 70, 60, 0.35);
 }
