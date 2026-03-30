@@ -5,6 +5,7 @@ import CompanionCard from './components/CompanionCard'
 import GridOverlay from './components/GridOverlay'
 import bgImage from './assets/background.png'
 
+
 function getPosition(index, activeIndex, total) {
   if (index === activeIndex) return 'center'
   if (index === (activeIndex + 1) % total) return 'right'
@@ -18,6 +19,9 @@ function App() {
   const [visibilityMode, setVisibilityMode]   = useState(false)
   const [cardsVisible, setCardsVisible]       = useState(true)
   const [dragStartX, setDragStartX]           = useState(null)
+  const [gameScreen, setGameScreen]           = useState('select')
+  const [selectedCompanion, setSelectedCompanion] = useState(null)
+  const [companionHue, setCompanionHue]       = useState(0)
 
   const SWIPE_THRESHOLD = 40
   const total  = companions.length
@@ -43,6 +47,22 @@ function App() {
     if (delta < -SWIPE_THRESHOLD) advance(1)
     else if (delta > SWIPE_THRESHOLD) advance(-1)
     setDragStartX(null)
+  }
+
+  const handleSelectPress = () => setGameScreen('confirm')
+
+  const handleConfirmYes = () => {
+    setSelectedCompanion(active)
+    setCompanionHue(0)
+    setGameScreen('customize')
+  }
+
+  const handleConfirmNo = () => setGameScreen('select')
+
+  const handleBackToSelect = () => {
+    setGameScreen('select')
+    setCompanionHue(0)
+    setSelectedCompanion(null)
   }
 
   return (
@@ -81,58 +101,112 @@ function App() {
           <div className="screen-bg" style={{ backgroundImage: `url(${bgImage})` }} />
           <GridOverlay visible={gridVisible} />
 
-          <div className="screen-content">
-            <header className="screen-header">
-              <h1 className="screen-title">
-                Choose who you<br />will learn with
-              </h1>
-            </header>
+          {/* ── Customize screen ── */}
+          {gameScreen === 'customize' && (
+            <div className="customize-screen">
+              <h1 className="customize-title">CUSTOMIZE</h1>
 
-            {/* ── Carousel ── */}
-            <div
-              className="carousel-stage"
-              onMouseDown={(e) => handleDragStart(e.clientX)}
-              onMouseUp={(e) => handleDragEnd(e.clientX)}
-              onMouseLeave={() => setDragStartX(null)}
-              onTouchStart={(e) => handleDragStart(e.touches[0].clientX)}
-              onTouchEnd={(e) => handleDragEnd(e.changedTouches[0].clientX)}
-              style={{ cursor: dragStartX !== null ? 'grabbing' : 'grab' }}
-            >
-              {companions.map((companion, index) => {
-                const position = getPosition(index, activeIndex, total)
-                return (
-                  <CompanionCard
-                    key={companion.id}
-                    companion={companion}
-                    position={position}
-                    colorVisible={colorVisible}
-                    visibilityMode={visibilityMode}
-                    cardsVisible={cardsVisible}
-                    onClick={() => {
-                      if (position === 'left')  advance(-1)
-                      if (position === 'right') advance(1)
-                    }}
-                  />
-                )
-              })}
-            </div>
-
-            {/* ── Select button ── */}
-            <button className={`select-btn${colorVisible ? ` companion-${active.id}` : ''}`}>SELECT</button>
-
-            {/* ── Info panel ── */}
-            <div className={`info-panel${colorVisible ? ` companion-${active.id}` : ''}`}>
-              <h2 className="info-name">{active.name}</h2>
-              <p className="info-subject">{active.subject}</p>
-              <div className="info-sub-subjects">
-                {active.subSubjects.map((s) => (
-                  <span key={s}>{s}</span>
-                ))}
+              <div className="customize-companion-wrap">
+                <img
+                  className="customize-companion-img"
+                  src={selectedCompanion.image}
+                  alt={selectedCompanion.name}
+                  style={{ filter: `hue-rotate(${(companionHue - selectedCompanion.baseHue + 360) % 360}deg)` }}
+                />
               </div>
-              <p className="info-flavor">"{active.flavorLine}"</p>
-            </div>
 
-          </div>
+              <h2 className="customize-name">{selectedCompanion.name}</h2>
+
+              <div className="hue-slider-wrap">
+                <input
+                  type="range"
+                  className="hue-slider"
+                  min="0"
+                  max="360"
+                  value={companionHue}
+                  onChange={(e) => setCompanionHue(Number(e.target.value))}
+                />
+              </div>
+
+              <button className="back-btn" onClick={handleBackToSelect}>
+                BACK
+              </button>
+            </div>
+          )}
+
+          {/* ── Select screen ── */}
+          {gameScreen !== 'customize' && (
+            <div className="screen-content">
+              <header className="screen-header">
+                <h1 className="screen-title">
+                  Choose who you<br />will learn with
+                </h1>
+              </header>
+
+              {/* ── Carousel ── */}
+              <div
+                className="carousel-stage"
+                onMouseDown={(e) => handleDragStart(e.clientX)}
+                onMouseUp={(e) => handleDragEnd(e.clientX)}
+                onMouseLeave={() => setDragStartX(null)}
+                onTouchStart={(e) => handleDragStart(e.touches[0].clientX)}
+                onTouchEnd={(e) => handleDragEnd(e.changedTouches[0].clientX)}
+                style={{ cursor: dragStartX !== null ? 'grabbing' : 'grab' }}
+              >
+                {companions.map((companion, index) => {
+                  const position = getPosition(index, activeIndex, total)
+                  return (
+                    <CompanionCard
+                      key={companion.id}
+                      companion={companion}
+                      position={position}
+                      colorVisible={colorVisible}
+                      visibilityMode={visibilityMode}
+                      cardsVisible={cardsVisible}
+                      onClick={() => {
+                        if (position === 'left')  advance(-1)
+                        if (position === 'right') advance(1)
+                      }}
+                    />
+                  )
+                })}
+              </div>
+
+              {/* ── Select button ── */}
+              <button
+                className={`select-btn${colorVisible ? ` companion-${active.id}` : ''}`}
+                onClick={handleSelectPress}
+              >
+                SELECT
+              </button>
+
+              {/* ── Info panel ── */}
+              <div className={`info-panel${colorVisible ? ` companion-${active.id}` : ''}`}>
+                <h2 className="info-name">{active.name}</h2>
+                <p className="info-subject">{active.subject}</p>
+                <div className="info-sub-subjects">
+                  {active.subSubjects.map((s) => (
+                    <span key={s}>{s}</span>
+                  ))}
+                </div>
+                <p className="info-flavor">"{active.flavorLine}"</p>
+              </div>
+
+              {/* ── Confirmation overlay ── */}
+              {gameScreen === 'confirm' && (
+                <div className="confirm-overlay">
+                  <div className="confirm-card">
+                    <p className="confirm-question">ARE YOU SURE?</p>
+                    <div className="confirm-buttons">
+                      <button className="confirm-btn confirm-yes" onClick={handleConfirmYes}>YES</button>
+                      <button className="confirm-btn confirm-no"  onClick={handleConfirmNo}>NO</button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -11,6 +11,7 @@ export const companions = [
     mood: 'Fierce',
     flavorLine: 'Precision is power.',
     image: vexorImg,
+    baseHue: 280,
   },
   {
     id: 'atomix',
@@ -20,6 +21,7 @@ export const companions = [
     mood: 'Bubbly / Playful',
     flavorLine: 'Every answer is an experiment.',
     image: atomixImg,
+    baseHue: 175,
   },
   {
     id: 'archaeon',
@@ -29,5 +31,6 @@ export const companions = [
     mood: 'Steampunk',
     flavorLine: 'The past is a puzzle waiting to be solved.',
     image: archaeonImg,
+    baseHue: 38,
   },
 ]
