@@ -13,6 +13,99 @@
 
 /* ── Grid toggle ────────────────────────────────── */
 
+.cards-toggle {
+  position: fixed;
+  top: 124px;
+  right: 16px;
+  background: transparent;
+  border: 1px solid #333;
+  color: #555;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  transition: border-color 100ms, color 100ms;
+  z-index: 99999;
+}
+
+.cards-toggle.active {
+  border-color: rgba(255, 0, 80, 0.6);
+  color: rgba(255, 0, 80, 0.8);
+}
+
+.cards-toggle:hover {
+  border-color: #666;
+  color: #888;
+}
+
+.cards-toggle.active:hover {
+  border-color: rgba(255, 0, 80, 0.9);
+  color: rgba(255, 0, 80, 1);
+}
+
+.visibility-toggle {
+  position: fixed;
+  top: 88px;
+  right: 16px;
+  background: transparent;
+  border: 1px solid #333;
+  color: #555;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  transition: border-color 100ms, color 100ms;
+  z-index: 99999;
+}
+
+.visibility-toggle.active {
+  border-color: rgba(255, 0, 80, 0.6);
+  color: rgba(255, 0, 80, 0.8);
+}
+
+.visibility-toggle:hover {
+  border-color: #666;
+  color: #888;
+}
+
+.visibility-toggle.active:hover {
+  border-color: rgba(255, 0, 80, 0.9);
+  color: rgba(255, 0, 80, 1);
+}
+
+.color-toggle {
+  position: fixed;
+  top: 52px;
+  right: 16px;
+  background: transparent;
+  border: 1px solid #333;
+  color: #555;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  transition: border-color 100ms, color 100ms;
+  z-index: 99999;
+}
+
+.color-toggle.active {
+  border-color: rgba(255, 0, 80, 0.6);
+  color: rgba(255, 0, 80, 0.8);
+}
+
+.color-toggle:hover {
+  border-color: #666;
+  color: #888;
+}
+
+.color-toggle.active:hover {
+  border-color: rgba(255, 0, 80, 0.9);
+  color: rgba(255, 0, 80, 1);
+}
+
 .grid-toggle {
   position: fixed;
   top: 16px;
@@ -74,7 +167,7 @@
   background: #161616;
   background-size: cover;
   background-position: calc(50% + 50px) center;
-  filter: grayscale(100%) opacity(25%);
+  filter: opacity(25%);
   transition: filter 150ms ease-out;
   z-index: 0;
 }
@@ -185,6 +278,32 @@
   font-style: italic;
   line-height: 1.6;
   text-align: center;
+}
+
+/* ── Companion tints — info panel ───────────────── */
+
+.info-panel.companion-vexor .info-subject {
+  color: #b490d4;
+}
+
+.info-panel.companion-vexor .info-sub-subjects span {
+  color: #8855aa;
+}
+
+.info-panel.companion-atomix .info-subject {
+  color: #74c4ba;
+}
+
+.info-panel.companion-atomix .info-sub-subjects span {
+  color: #50a399;
+}
+
+.info-panel.companion-archaeon .info-subject {
+  color: #d0ab71;
+}
+
+.info-panel.companion-archaeon .info-sub-subjects span {
+  color: #b0813e;
 }
 
 /* ── Back button ────────────────────────────────── */

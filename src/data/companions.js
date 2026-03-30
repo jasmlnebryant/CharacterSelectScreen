@@ -1,3 +1,7 @@
+import vexorImg from '../assets/vexor.png'
+import atomixImg from '../assets/atomix.png'
+import archaeonImg from '../assets/archaeon.png'
+
 export const companions = [
   {
     id: 'vexor',
@@ -6,7 +10,7 @@ export const companions = [
     subSubjects: ['Algebra', 'Geometry', 'Calculus'],
     mood: 'Fierce',
     flavorLine: 'Precision is power.',
-    placeholderValue: '#3a3a3a',
+    image: vexorImg,
   },
   {
     id: 'atomix',
@@ -15,7 +19,7 @@ export const companions = [
     subSubjects: ['Biology', 'Chemistry', 'Physics'],
     mood: 'Bubbly / Playful',
     flavorLine: 'Every answer is an experiment.',
-    placeholderValue: '#4d4d4d',
+    image: atomixImg,
   },
   {
     id: 'archaeon',
@@ -24,6 +28,6 @@ export const companions = [
     subSubjects: ['World History', 'US History', 'Government'],
     mood: 'Steampunk',
     flavorLine: 'The past is a puzzle waiting to be solved.',
-    placeholderValue: '#414141',
+    image: archaeonImg,
   },
 ]

@@ -12,9 +12,12 @@ function getPosition(index, activeIndex, total) {
 }
 
 function App() {
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [gridVisible, setGridVisible]  = useState(false)
-  const [dragStartX, setDragStartX]    = useState(null)
+  const [activeIndex, setActiveIndex]         = useState(0)
+  const [gridVisible, setGridVisible]         = useState(false)
+  const [colorVisible, setColorVisible]       = useState(false)
+  const [visibilityMode, setVisibilityMode]   = useState(false)
+  const [cardsVisible, setCardsVisible]       = useState(true)
+  const [dragStartX, setDragStartX]           = useState(null)
 
   const SWIPE_THRESHOLD = 40
   const total  = companions.length
@@ -51,6 +54,27 @@ function App() {
       >
         GRID
       </button>
+      <button
+        className={`color-toggle ${colorVisible ? 'active' : ''}`}
+        onClick={() => setColorVisible((v) => !v)}
+        title="Toggle color tints"
+      >
+        COLOR
+      </button>
+      <button
+        className={`visibility-toggle ${visibilityMode ? 'active' : ''}`}
+        onClick={() => setVisibilityMode((v) => !v)}
+        title="Toggle visibility"
+      >
+        VISIBILITY
+      </button>
+      <button
+        className={`cards-toggle ${cardsVisible ? 'active' : ''}`}
+        onClick={() => setCardsVisible((v) => !v)}
+        title="Toggle cards"
+      >
+        CARDS
+      </button>
 
       <div className="phone-frame">
         <div className="screen">
@@ -81,6 +105,9 @@ function App() {
                     key={companion.id}
                     companion={companion}
                     position={position}
+                    colorVisible={colorVisible}
+                    visibilityMode={visibilityMode}
+                    cardsVisible={cardsVisible}
                     onClick={() => {
                       if (position === 'left')  advance(-1)
                       if (position === 'right') advance(1)
@@ -91,7 +118,7 @@ function App() {
             </div>
 
             {/* ── Info panel ── */}
-            <div className="info-panel">
+            <div className={`info-panel${colorVisible ? ` companion-${active.id}` : ''}`}>
               <h2 className="info-name">{active.name}</h2>
               <p className="info-subject">{active.subject}</p>
               <div className="info-sub-subjects">

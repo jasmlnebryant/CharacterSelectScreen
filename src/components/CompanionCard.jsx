@@ -1,18 +1,18 @@
 import './CompanionCard.css'
 
-function CompanionCard({ companion, position, onClick }) {
+function CompanionCard({ companion, position, colorVisible, visibilityMode, cardsVisible, onClick }) {
+  const isSilhouette = visibilityMode && position !== 'center'
   return (
     <div
-      className={`companion-card position-${position}`}
+      className={`companion-card position-${position}${colorVisible && position === 'center' ? ` companion-${companion.id}` : ''}${isSilhouette ? ' is-silhouette' : ''}${!cardsVisible ? ' no-card' : ''}`}
       onClick={onClick}
     >
       <div className="card-image-wrap">
-        <div
-          className="card-image-placeholder"
-          style={{ background: companion.placeholderValue }}
-        >
-          <span className="card-initial">{companion.name[0]}</span>
-        </div>
+        <img
+          className="card-image"
+          src={companion.image}
+          alt={companion.name}
+        />
       </div>
 
       <div className="card-info">
