@@ -15,8 +15,8 @@ function getPosition(index, activeIndex, total) {
 function App() {
   const [activeIndex, setActiveIndex]         = useState(0)
   const [gridVisible, setGridVisible]         = useState(false)
-  const [colorVisible, setColorVisible]       = useState(false)
-  const [visibilityMode, setVisibilityMode]   = useState(false)
+  const [colorVisible, setColorVisible]       = useState(true)
+  const [visibilityMode, setVisibilityMode]   = useState(true)
   const [cardsVisible, setCardsVisible]       = useState(true)
   const [dragStartX, setDragStartX]           = useState(null)
   const [gameScreen, setGameScreen]           = useState('select')
