@@ -22,6 +22,7 @@ function App() {
   const [gameScreen, setGameScreen]           = useState('select')
   const [selectedCompanion, setSelectedCompanion] = useState(null)
   const [companionHue, setCompanionHue]       = useState(0)
+  const [lockedHue, setLockedHue]             = useState(0)
 
   const SWIPE_THRESHOLD = 40
   const total  = companions.length
@@ -59,9 +60,15 @@ function App() {
 
   const handleConfirmNo = () => setGameScreen('select')
 
+  const handleColorSelect = () => {
+    setLockedHue(companionHue)
+    setGameScreen('ready')
+  }
+
   const handleBackToSelect = () => {
     setGameScreen('select')
     setCompanionHue(0)
+    setLockedHue(0)
     setSelectedCompanion(null)
   }
 
@@ -128,14 +135,43 @@ function App() {
                 />
               </div>
 
+              <button className="color-select-btn" onClick={handleColorSelect}>
+                SELECT
+              </button>
+
               <button className="back-btn" onClick={handleBackToSelect}>
                 BACK
               </button>
             </div>
           )}
 
+          {/* ── Ready screen ── */}
+          {gameScreen === 'ready' && (
+            <div className="ready-screen">
+              <h1 className="ready-title">
+                YOUR COMPANION<br />IS READY.
+              </h1>
+              <p className="ready-subtitle">Time to start learning.</p>
+
+              <div className="ready-companion-wrap">
+                <img
+                  className="ready-companion-img"
+                  src={selectedCompanion.readyImage}
+                  alt={selectedCompanion.name}
+                  style={{ filter: `hue-rotate(${(lockedHue - selectedCompanion.baseHue + 360) % 360}deg)` }}
+                />
+              </div>
+
+              <h2 className="ready-name">{selectedCompanion.name}</h2>
+
+              <button className="ready-start-btn" onClick={handleBackToSelect}>
+                START
+              </button>
+            </div>
+          )}
+
           {/* ── Select screen ── */}
-          {gameScreen !== 'customize' && (
+          {gameScreen !== 'customize' && gameScreen !== 'ready' && (
             <div className="screen-content">
               <header className="screen-header">
                 <h1 className="screen-title">
