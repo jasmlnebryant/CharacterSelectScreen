@@ -17,7 +17,7 @@ function App() {
   const [gridVisible, setGridVisible]         = useState(false)
   const [colorVisible, setColorVisible]       = useState(true)
   const [visibilityMode, setVisibilityMode]   = useState(true)
-  const [cardsVisible, setCardsVisible]       = useState(true)
+  const [cardsVisible, setCardsVisible]       = useState(false)
   const [dragStartX, setDragStartX]           = useState(null)
   const [gameScreen, setGameScreen]           = useState('select')
   const [selectedCompanion, setSelectedCompanion] = useState(null)
@@ -114,6 +114,7 @@ function App() {
               <h1 className="customize-title">CUSTOMIZE</h1>
 
               <div className="customize-companion-wrap">
+                <div className="companion-backdrop" />
                 <img
                   className="customize-companion-img"
                   src={selectedCompanion.image}
@@ -154,6 +155,7 @@ function App() {
               <p className="ready-subtitle">Time to start learning.</p>
 
               <div className="ready-companion-wrap">
+                <div className="companion-backdrop" />
                 <img
                   className="ready-companion-img"
                   src={selectedCompanion.readyImage}
@@ -189,6 +191,7 @@ function App() {
                 onTouchEnd={(e) => handleDragEnd(e.changedTouches[0].clientX)}
                 style={{ cursor: dragStartX !== null ? 'grabbing' : 'grab' }}
               >
+                <div className="companion-backdrop carousel-backdrop" />
                 {companions.map((companion, index) => {
                   const position = getPosition(index, activeIndex, total)
                   return (

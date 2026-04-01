@@ -153,3 +153,13 @@ All success entries are recorded chronologically. Each entry captures what was p
 
 **S2 — Permissions whitelist**
 - Applying the instructor's settings.json whitelist eliminates permission prompts for all routine operations, reducing friction for the rest of the project.
+
+---
+
+## CP14 — Small Tweaks
+
+**S1 — Backdrop blur contrast improvement**
+- Single reusable `.companion-backdrop` class handles all three screens (carousel, customize, ready) — no per-screen special casing needed beyond sizing.
+
+**S2 — Quote margin fine-tuning**
+- Student used iterative 5px nudges to dial in spacing precisely — clean workflow for pixel-level adjustments.

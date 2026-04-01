@@ -247,7 +247,7 @@
 
 .info-subject {
   font-family: system-ui, -apple-system, sans-serif;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 700;
   color: #aaa;
   letter-spacing: 0.05em;
@@ -266,7 +266,7 @@
 
 .info-sub-subjects span {
   font-family: system-ui, -apple-system, sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   color: #888;
   text-align: center;
 }
@@ -274,10 +274,11 @@
 .info-flavor {
   font-family: system-ui, -apple-system, sans-serif;
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.6);
+  color: #f0f0f0;
   font-style: italic;
   line-height: 1.6;
   text-align: center;
+  margin-top: 40px;
 }
 
 /* ── Companion tints — info panel ───────────────── */
@@ -484,6 +485,7 @@
   width: 240px;
   height: 240px;
   flex-shrink: 0;
+  position: relative;
 }
 
 .customize-companion-img {
@@ -593,6 +595,7 @@
   width: 300px;
   height: 300px;
   flex-shrink: 0;
+  position: relative;
 }
 
 .ready-companion-img {
@@ -636,4 +639,37 @@
 
 .ready-start-btn:hover {
   opacity: 0.88;
+}
+
+/* ── Companion backdrop blur ────────────────────── */
+
+.companion-backdrop {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
+  filter: blur(32px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.customize-companion-img,
+.ready-companion-img {
+  position: relative;
+  z-index: 1;
+}
+
+/* carousel backdrop — centered in the stage */
+.carousel-backdrop {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  pointer-events: none;
 }

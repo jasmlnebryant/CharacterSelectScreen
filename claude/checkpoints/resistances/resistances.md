@@ -174,4 +174,17 @@ No resistance recorded this session.
 
 ## CP13 — End of Stage 4
 
-No resistance recorded this session. All three features were implemented cleanly on the first pass.
+No resistance recorded this session.
+
+---
+
+## CP14 — Small Tweaks
+
+**R1 — Text stroke tried and reverted**
+- Added `1px black -webkit-text-stroke` to subject and sub-subjects text
+- Student immediately asked to undo — stroke made the text feel heavy
+- Lesson: text-stroke on small sans-serif body text tends to look chunky; skip unless explicitly requested again
+
+**R2 — Quote margin iteration**
+- Quote lowered 50px (`margin-top: 50px`), then nudged up twice in 5px increments to land at 40px
+- Final value: `margin-top: 40px` All three features were implemented cleanly on the first pass.
