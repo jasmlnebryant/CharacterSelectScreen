@@ -181,10 +181,25 @@ No resistance recorded this session.
 ## CP14 — Small Tweaks
 
 **R1 — Text stroke tried and reverted**
+
 - Added `1px black -webkit-text-stroke` to subject and sub-subjects text
 - Student immediately asked to undo — stroke made the text feel heavy
 - Lesson: text-stroke on small sans-serif body text tends to look chunky; skip unless explicitly requested again
 
 **R2 — Quote margin iteration**
 - Quote lowered 50px (`margin-top: 50px`), then nudged up twice in 5px increments to land at 40px
-- Final value: `margin-top: 40px` All three features were implemented cleanly on the first pass.
+- Final value: `margin-top: 40px`
+
+---
+
+## CP15 — More Tweaks
+
+**R1 — "ARE YOU SURE?" removed**
+- Previous design had a confirmation overlay between SELECT and customize
+- Student decided to remove it entirely — SELECT goes straight to customize
+- Simpler flow, fewer taps
+
+**R2 — Info panel space-between shifted the quote**
+- First attempt used `height: 220px` with `justify-content: space-between` — quote moved down significantly
+- Reverted to original margins, then recalculated panel height to 131px to match original quote position
+- Second attempt with 131px worked correctly

@@ -57,7 +57,7 @@ The images of each companion will not be generated through you. I will provide t
 2. **Base Colors** Create companion artwork. Apply per-subject palletes as well as silhouette contrast.
 3. **Animation** Companions will have an idle animation.
 4. **Customization** Companions colors can be chosen by the user. 
-5. **Polish & Post Effects** Users can futher customize their companions by choosing a name & personality (which will affect dialogue).
+5. **Polish & Post Effects** 
 
 ---
 

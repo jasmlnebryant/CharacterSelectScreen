@@ -163,3 +163,16 @@ All success entries are recorded chronologically. Each entry captures what was p
 
 **S2 — Quote margin fine-tuning**
 - Student used iterative 5px nudges to dial in spacing precisely — clean workflow for pixel-level adjustments.
+
+---
+
+## CP15 — More Tweaks
+
+**S1 — Hue-reactive buttons**
+- SELECT and START buttons now reactively tint to the companion's chosen hue using `hsla()` inline styles — consistent visual language across all three screens.
+
+**S2 — Accessibility color lift**
+- All three companion accent colors were brightened to be legible on the dark background without changing the hue identity of each companion.
+
+**S3 — Info panel space-between**
+- Using a calculated fixed height (131px) for the info panel allowed `justify-content: space-between` to evenly distribute the three text groups while keeping name and quote exactly where they were.

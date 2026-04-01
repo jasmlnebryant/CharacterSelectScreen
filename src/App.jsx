@@ -50,15 +50,11 @@ function App() {
     setDragStartX(null)
   }
 
-  const handleSelectPress = () => setGameScreen('confirm')
-
-  const handleConfirmYes = () => {
+  const handleSelectPress = () => {
     setSelectedCompanion(active)
     setCompanionHue(0)
     setGameScreen('customize')
   }
-
-  const handleConfirmNo = () => setGameScreen('select')
 
   const handleColorSelect = () => {
     setLockedHue(companionHue)
@@ -136,7 +132,11 @@ function App() {
                 />
               </div>
 
-              <button className="color-select-btn" onClick={handleColorSelect}>
+              <button
+                className="color-select-btn"
+                onClick={handleColorSelect}
+                style={{ background: `hsla(${companionHue}, 65%, 55%, 0.4)` }}
+              >
                 SELECT
               </button>
 
@@ -152,7 +152,7 @@ function App() {
               <h1 className="ready-title">
                 YOUR COMPANION<br />IS READY.
               </h1>
-              <p className="ready-subtitle">Time to start learning.</p>
+              <p className="ready-subtitle" style={{ color: `hsl(${lockedHue}, 65%, 65%)` }}>Time to start learning.</p>
 
               <div className="ready-companion-wrap">
                 <div className="companion-backdrop" />
@@ -166,14 +166,18 @@ function App() {
 
               <h2 className="ready-name">{selectedCompanion.name}</h2>
 
-              <button className="ready-start-btn" onClick={handleBackToSelect}>
+              <button
+                className="ready-start-btn"
+                onClick={handleBackToSelect}
+                style={{ background: `hsla(${lockedHue}, 65%, 55%, 0.4)` }}
+              >
                 START
               </button>
             </div>
           )}
 
           {/* ── Select screen ── */}
-          {gameScreen !== 'customize' && gameScreen !== 'ready' && (
+          {gameScreen === 'select' && (
             <div className="screen-content">
               <header className="screen-header">
                 <h1 className="screen-title">
@@ -222,27 +226,16 @@ function App() {
               {/* ── Info panel ── */}
               <div className={`info-panel${colorVisible ? ` companion-${active.id}` : ''}`}>
                 <h2 className="info-name">{active.name}</h2>
-                <p className="info-subject">{active.subject}</p>
-                <div className="info-sub-subjects">
-                  {active.subSubjects.map((s) => (
-                    <span key={s}>{s}</span>
-                  ))}
+                <div className="info-subject-group">
+                  <p className="info-subject">{active.subject}</p>
+                  <div className="info-sub-subjects">
+                    {active.subSubjects.map((s) => (
+                      <span key={s}>{s}</span>
+                    ))}
+                  </div>
                 </div>
                 <p className="info-flavor">"{active.flavorLine}"</p>
               </div>
-
-              {/* ── Confirmation overlay ── */}
-              {gameScreen === 'confirm' && (
-                <div className="confirm-overlay">
-                  <div className="confirm-card">
-                    <p className="confirm-question">ARE YOU SURE?</p>
-                    <div className="confirm-buttons">
-                      <button className="confirm-btn confirm-yes" onClick={handleConfirmYes}>YES</button>
-                      <button className="confirm-btn confirm-no"  onClick={handleConfirmNo}>NO</button>
-                    </div>
-                  </div>
-                </div>
-              )}
 
             </div>
           )}
