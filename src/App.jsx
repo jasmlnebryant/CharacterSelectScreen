@@ -104,6 +104,11 @@ function App() {
           <div className="screen-bg" style={{ backgroundImage: `url(${bgImage})` }} />
           <GridOverlay visible={gridVisible} />
 
+          {/* ── iPhone 16 status bar ── */}
+          <div className="status-bar">
+            <div className="dynamic-island" />
+          </div>
+
           {/* ── Customize screen ── */}
           {gameScreen === 'customize' && (
             <div className="customize-screen">
@@ -150,9 +155,8 @@ function App() {
           {gameScreen === 'ready' && (
             <div className="ready-screen">
               <h1 className="ready-title">
-                YOUR COMPANION<br />IS READY.
+                TIME TO START<br />LEARNING!
               </h1>
-              <p className="ready-subtitle" style={{ color: `hsl(${lockedHue}, 65%, 65%)` }}>Time to start learning.</p>
 
               <div className="ready-companion-wrap">
                 <div className="companion-backdrop" />
@@ -163,8 +167,6 @@ function App() {
                   style={{ filter: `hue-rotate(${(lockedHue - selectedCompanion.baseHue + 360) % 360}deg)` }}
                 />
               </div>
-
-              <h2 className="ready-name">{selectedCompanion.name}</h2>
 
               <button
                 className="ready-start-btn"

@@ -194,6 +194,7 @@ No resistance recorded this session.
 
 ## CP15 — More Tweaks
 
+
 **R1 — "ARE YOU SURE?" removed**
 - Previous design had a confirmation overlay between SELECT and customize
 - Student decided to remove it entirely — SELECT goes straight to customize
@@ -203,3 +204,12 @@ No resistance recorded this session.
 - First attempt used `height: 220px` with `justify-content: space-between` — quote moved down significantly
 - Reverted to original margins, then recalculated panel height to 131px to match original quote position
 - Second attempt with 131px worked correctly
+
+---
+
+## CP16 — Halfway Through Stage 5
+
+**R1 — Ready screen centering required padding approach**
+- `justify-content: center` on a full-screen element centers in the full 844px height — companion landed too high visually
+- Fix: padding-top/bottom to constrain the centering zone between header bottom and button top
+- Required two nudge passes (–40px, then –10px more) to visually land correctly

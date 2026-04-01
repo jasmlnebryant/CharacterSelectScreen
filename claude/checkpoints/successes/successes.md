@@ -176,3 +176,13 @@ All success entries are recorded chronologically. Each entry captures what was p
 
 **S3 — Info panel space-between**
 - Using a calculated fixed height (131px) for the info panel allowed `justify-content: space-between` to evenly distribute the three text groups while keeping name and quote exactly where they were.
+
+---
+
+## CP16 — Halfway Through Stage 5
+
+**S1 — Unified button position across all screens**
+- All three primary action buttons now sit at exactly the same position on every screen — muscle memory consistent, visually clean.
+
+**S2 — Dynamic Island pill only**
+- Transparent status bar + black pill only gives the iPhone illusion without blocking any screen content with a solid black bar.
