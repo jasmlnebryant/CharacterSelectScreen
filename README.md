@@ -183,14 +183,12 @@ flowchart TD
 
 ## Five Questions Reflection
 
-*(Short paragraph completed before submission)*
-
-1. **Can I defend this?** (Is this a solution I created?)
+1. **Can I defend this?** Yes, I can. I was the designer of this project, therefore, I designed every major decision. I can accurately describe design intentions and answer any questions.
 
 2. **Is this mine?** Before starting this project, I gave Claude my design intent and emphasized how I am the designer -- Claude was to simply follow my instructions. Because of this, I can confidently say that this Character Select Screen is mine, not Claude's. There were one or two times where I asked Claude for its opinion, but ultimately I decided whether or not it aligned with my design intent and was usable. 
 
-3. **Did I verify?** (does it work)
+3. **Did I verify?** Yes, I went through each screen and checked the functionality of the buttons, as well as made sure design intents were visible and working. 
 
-4. **Would I teach this?** (vibe coding. human return questions)
+4. **Would I teach this?** Yes, I believe that I have a very good understanding of how to use Claude to vibe code the start of a simple application. I'd be able to get others to the same point as myself through memory and referencing my checkpoints and looking at the human directions.
 
-5. **Is my documentation honest?** 
+5. **Is my documentation honest?** Yes. Claude documented every prompt and areas of success/resistance. They can be found in the "checkpoints" folder.
