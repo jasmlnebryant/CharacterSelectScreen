@@ -317,6 +317,51 @@
 
 /* ── Select button ──────────────────────────────── */
 
+@keyframes btnFill {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+/* Shake starts imperceptible, builds to aggressive over 1.5s */
+@keyframes btnShake {
+  0%   { transform: translateX(-50%) translateY(-50%) scale(0.8); }
+  3%   { transform: translateX(calc(-50% - 0.5px)) translateY(-50%) scale(0.8); }
+  7%   { transform: translateX(calc(-50% + 0.5px)) translateY(-50%) scale(0.8); }
+  10%  { transform: translateX(-50%) translateY(-50%) scale(0.8); }
+  13%  { transform: translateX(calc(-50% - 1px)) translateY(-50%) scale(0.8); }
+  17%  { transform: translateX(calc(-50% + 1px)) translateY(-50%) scale(0.8); }
+  20%  { transform: translateX(-50%) translateY(-50%) scale(0.8); }
+  23%  { transform: translateX(calc(-50% - 1.5px)) translateY(-50%) scale(0.8); }
+  27%  { transform: translateX(calc(-50% + 1.5px)) translateY(-50%) scale(0.8); }
+  30%  { transform: translateX(-50%) translateY(-50%) scale(0.8); }
+  33%  { transform: translateX(calc(-50% - 2px)) translateY(-50%) scale(0.8); }
+  37%  { transform: translateX(calc(-50% + 2px)) translateY(-50%) scale(0.8); }
+  40%  { transform: translateX(-50%) translateY(-50%) scale(0.8); }
+  43%  { transform: translateX(calc(-50% - 2.5px)) translateY(-50%) scale(0.8); }
+  47%  { transform: translateX(calc(-50% + 2.5px)) translateY(-50%) scale(0.8); }
+  50%  { transform: translateX(-50%) translateY(-50%) scale(0.8); }
+  53%  { transform: translateX(calc(-50% - 3px)) translateY(-50%) scale(0.8); }
+  57%  { transform: translateX(calc(-50% + 3px)) translateY(-50%) scale(0.8); }
+  60%  { transform: translateX(-50%) translateY(-50%) scale(0.8); }
+  63%  { transform: translateX(calc(-50% - 4px)) translateY(-50%) scale(0.8); }
+  67%  { transform: translateX(calc(-50% + 4px)) translateY(-50%) scale(0.8); }
+  70%  { transform: translateX(-50%) translateY(-50%) scale(0.8); }
+  73%  { transform: translateX(calc(-50% - 5px)) translateY(-50%) scale(0.8); }
+  77%  { transform: translateX(calc(-50% + 5px)) translateY(-50%) scale(0.8); }
+  80%  { transform: translateX(-50%) translateY(-50%) scale(0.8); }
+  83%  { transform: translateX(calc(-50% - 6px)) translateY(-50%) scale(0.8); }
+  87%  { transform: translateX(calc(-50% + 6px)) translateY(-50%) scale(0.8); }
+  90%  { transform: translateX(-50%) translateY(-50%) scale(0.8); }
+  93%  { transform: translateX(calc(-50% - 7px)) translateY(-50%) scale(0.8); }
+  97%  { transform: translateX(calc(-50% + 7px)) translateY(-50%) scale(0.8); }
+  100% { transform: translateX(-50%) translateY(-50%) scale(0.8); }
+}
+
+@keyframes particleRise {
+  0%   { transform: translateY(0)      translateX(0)           scale(1); opacity: 0.9; }
+  100% { transform: translateY(-90px)  translateX(var(--tx))   scale(0); opacity: 0; }
+}
+
 .select-btn {
   position: absolute;
   top: 760px;
@@ -335,6 +380,9 @@
   text-align: center;
   cursor: pointer;
   z-index: 10;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
   transition: background 150ms ease-out;
 }
 
@@ -345,6 +393,37 @@
 .select-btn.companion-vexor    { background: rgba(180, 144, 212, 0.4); }
 .select-btn.companion-atomix   { background: rgba(116, 196, 186, 0.4); }
 .select-btn.companion-archaeon { background: rgba(208, 171, 113, 0.4); }
+
+/* Fill bar */
+.select-btn-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  background: rgba(240, 240, 240, 0.25);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.select-btn.companion-vexor    .select-btn-fill { background: rgba(180, 144, 212, 0.55); }
+.select-btn.companion-atomix   .select-btn-fill { background: rgba(116, 196, 186, 0.55); }
+.select-btn.companion-archaeon .select-btn-fill { background: rgba(208, 171, 113, 0.55); }
+
+.select-btn.holding .select-btn-fill {
+  animation: btnFill 1.5s linear forwards;
+}
+
+/* Label — sits above fill */
+.select-btn-label {
+  position: relative;
+  z-index: 1;
+}
+
+/* Shake the whole button — one 1.5s arc that builds */
+.select-btn.holding {
+  animation: btnShake 1.5s linear forwards;
+}
 
 /* ── Color select button (customize screen) ─────── */
 
@@ -623,6 +702,11 @@
   margin-bottom: 0;
 }
 
+@keyframes btnPulsate {
+  0%, 100% { transform: translateX(-50%) translateY(-50%) scale(0.8); }
+  50%      { transform: translateX(-50%) translateY(-50%) scale(0.84); }
+}
+
 .ready-start-btn {
   position: absolute;
   top: 760px;
@@ -640,8 +724,8 @@
   text-align: center;
   cursor: pointer;
   z-index: 10;
-  transition: opacity 150ms ease-out;
   white-space: nowrap;
+  animation: btnPulsate 1.8s ease-in-out infinite;
 }
 
 .ready-start-btn:hover {
@@ -671,6 +755,31 @@
   margin-top: 4px;
 }
 
+/* ── Screen transitions (View Transitions API) ──── */
+
+/* Crossfade everything by default */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.35s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Companion hero — morphs position + size between screens */
+.position-center .card-image {
+  view-transition-name: companion-hero;
+}
+.customize-companion-img {
+  view-transition-name: companion-hero;
+}
+.ready-companion-img {
+  view-transition-name: companion-hero;
+}
+
+::view-transition-group(companion-hero) {
+  animation-duration: 0.45s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* ── Companion backdrop blur ────────────────────── */
 
 .companion-backdrop {
@@ -691,6 +800,31 @@
 .ready-companion-img {
   position: relative;
   z-index: 1;
+}
+
+/* Ready screen companion sits above the particles */
+.ready-companion-img {
+  z-index: 2;
+}
+
+.ready-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: #ffffff;
+  pointer-events: none;
+  z-index: 1;
+  animation: particleRise 0.75s ease-out forwards;
+}
+
+/* ── Hold particles ─────────────────────────────── */
+
+.hold-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: #ffffff;
+  pointer-events: none;
+  z-index: 15;
+  animation: particleRise 0.75s ease-out forwards;
 }
 
 /* carousel backdrop — centered in the stage */

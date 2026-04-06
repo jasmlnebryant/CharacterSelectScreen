@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { flushSync } from 'react-dom'
 import './App.css'
 import { companions } from './data/companions'
 import CompanionCard from './components/CompanionCard'
@@ -23,6 +24,16 @@ function App() {
   const [selectedCompanion, setSelectedCompanion] = useState(null)
   const [companionHue, setCompanionHue]       = useState(0)
   const [lockedHue, setLockedHue]             = useState(0)
+  const [isHolding, setIsHolding]             = useState(false)
+  const [particles, setParticles]             = useState([])
+  const holdTimerRef                          = useRef(null)
+  const particleTimerRef                      = useRef(null)
+  const holdStartTimeRef                      = useRef(null)
+  const hintRafRef                            = useRef(null)
+  const hintRepeatTimerRef                    = useRef(null)
+  const userHasSlidRef                        = useRef(false)
+  const [readyParticles, setReadyParticles]   = useState([])
+  const readyParticleTimerRef                 = useRef(null)
 
   const SWIPE_THRESHOLD = 40
   const total  = companions.length
@@ -35,6 +46,69 @@ function App() {
     window.addEventListener('keydown', handleKey)
     return () => window.removeEventListener('keydown', handleKey)
   }, [])
+
+  // Hue hint animation — sweeps to green and back, repeats every 20s until user slides
+  useEffect(() => {
+    if (gameScreen !== 'customize') return
+
+    userHasSlidRef.current = false
+
+    const PEAK_HUE = 120
+    const DURATION = 2000
+    const REPEAT_DELAY = 20000
+
+    const runHint = () => {
+      if (userHasSlidRef.current) return
+
+      const startTime = performance.now()
+
+      const animate = (now) => {
+        if (userHasSlidRef.current) return
+        const progress = Math.min((now - startTime) / DURATION, 1)
+        setCompanionHue(Math.round(PEAK_HUE * Math.sin(progress * Math.PI)))
+        if (progress < 1) {
+          hintRafRef.current = requestAnimationFrame(animate)
+        } else {
+          setCompanionHue(0)
+          if (!userHasSlidRef.current) {
+            hintRepeatTimerRef.current = setTimeout(runHint, REPEAT_DELAY)
+          }
+        }
+      }
+
+      hintRafRef.current = requestAnimationFrame(animate)
+    }
+
+    runHint()
+
+    return () => {
+      cancelAnimationFrame(hintRafRef.current)
+      clearTimeout(hintRepeatTimerRef.current)
+    }
+  }, [gameScreen])
+
+  // Ambient particles behind companion on the ready screen
+  useEffect(() => {
+    if (gameScreen !== 'ready') return
+
+    const spawnParticle = () => {
+      setReadyParticles(prev => [...prev, {
+        id:   Date.now() + Math.random(),
+        x:    Math.random() * 300,
+        top:  120 + Math.random() * 180,
+        tx:   (Math.random() - 0.5) * 50,
+        size: 2 + Math.random() * 4,
+      }])
+      readyParticleTimerRef.current = setTimeout(spawnParticle, 80 + Math.random() * 100)
+    }
+
+    spawnParticle()
+
+    return () => {
+      clearTimeout(readyParticleTimerRef.current)
+      setReadyParticles([])
+    }
+  }, [gameScreen])
 
   const advance = (dir) => {
     setActiveIndex((i) => (i + dir + total) % total)
@@ -50,22 +124,74 @@ function App() {
     setDragStartX(null)
   }
 
+  const navigate = (action) => {
+    if (!document.startViewTransition) { action(); return }
+    document.startViewTransition(() => flushSync(action))
+  }
+
   const handleSelectPress = () => {
-    setSelectedCompanion(active)
-    setCompanionHue(0)
-    setGameScreen('customize')
+    navigate(() => {
+      setSelectedCompanion(active)
+      setCompanionHue(0)
+      setGameScreen('customize')
+    })
+  }
+
+  const handleHoldStart = () => {
+    setIsHolding(true)
+    setParticles([])
+    holdStartTimeRef.current = Date.now()
+
+    const spawnParticle = () => {
+      const elapsed  = Date.now() - holdStartTimeRef.current
+      const progress = Math.min(elapsed / 1500, 1)
+
+      setParticles(prev => [...prev, {
+        id:   Date.now() + Math.random(),
+        x:    63 + Math.random() * 264,
+        top:  730 + Math.random() * 30,
+        tx:   (Math.random() - 0.5) * 60,
+        size: 2 + Math.random() * 2 + progress * 4,
+      }])
+
+      // interval shrinks from 220ms → 55ms as hold progresses
+      const next = Math.max(55, 220 - progress * 165)
+      particleTimerRef.current = setTimeout(spawnParticle, next)
+    }
+
+    spawnParticle()
+
+    holdTimerRef.current = setTimeout(() => {
+      clearTimeout(particleTimerRef.current)
+      setIsHolding(false)
+      setParticles([])
+      handleSelectPress()
+    }, 1500)
+  }
+
+  const handleHoldEnd = () => {
+    clearTimeout(holdTimerRef.current)
+    clearTimeout(particleTimerRef.current)
+    holdTimerRef.current    = null
+    particleTimerRef.current = null
+    setIsHolding(false)
+    setParticles([])
   }
 
   const handleColorSelect = () => {
-    setLockedHue(companionHue)
-    setGameScreen('ready')
+    navigate(() => {
+      setLockedHue(companionHue)
+      setGameScreen('ready')
+    })
   }
 
   const handleBackToSelect = () => {
-    setGameScreen('select')
-    setCompanionHue(0)
-    setLockedHue(0)
-    setSelectedCompanion(null)
+    navigate(() => {
+      setGameScreen('select')
+      setCompanionHue(0)
+      setLockedHue(0)
+      setSelectedCompanion(null)
+    })
   }
 
   return (
@@ -109,6 +235,24 @@ function App() {
             <div className="dynamic-island" />
           </div>
 
+          {/* ── Hold particles ── */}
+          {particles.map(p => (
+            <div
+              key={p.id}
+              className="hold-particle"
+              style={{
+                left:    `${p.x}px`,
+                top:     `${p.top}px`,
+                width:   `${p.size}px`,
+                height:  `${p.size}px`,
+                '--tx':  `${p.tx}px`,
+              }}
+              onAnimationEnd={() =>
+                setParticles(prev => prev.filter(x => x.id !== p.id))
+              }
+            />
+          ))}
+
           {/* ── Customize screen ── */}
           {gameScreen === 'customize' && (
             <div className="customize-screen">
@@ -133,7 +277,12 @@ function App() {
                   min="0"
                   max="360"
                   value={companionHue}
-                  onChange={(e) => setCompanionHue(Number(e.target.value))}
+                  onChange={(e) => {
+                    userHasSlidRef.current = true
+                    cancelAnimationFrame(hintRafRef.current)
+                    clearTimeout(hintRepeatTimerRef.current)
+                    setCompanionHue(Number(e.target.value))
+                  }}
                 />
               </div>
 
@@ -145,9 +294,6 @@ function App() {
                 SELECT
               </button>
 
-              <button className="back-btn" onClick={handleBackToSelect}>
-                BACK
-              </button>
             </div>
           )}
 
@@ -160,6 +306,22 @@ function App() {
 
               <div className="ready-companion-wrap">
                 <div className="companion-backdrop" />
+                {readyParticles.map(p => (
+                  <div
+                    key={p.id}
+                    className="ready-particle"
+                    style={{
+                      left:   `${p.x}px`,
+                      top:    `${p.top}px`,
+                      width:  `${p.size}px`,
+                      height: `${p.size}px`,
+                      '--tx': `${p.tx}px`,
+                    }}
+                    onAnimationEnd={() =>
+                      setReadyParticles(prev => prev.filter(x => x.id !== p.id))
+                    }
+                  />
+                ))}
                 <img
                   className="ready-companion-img"
                   src={selectedCompanion.readyImage}
@@ -219,10 +381,14 @@ function App() {
 
               {/* ── Select button ── */}
               <button
-                className={`select-btn${colorVisible ? ` companion-${active.id}` : ''}`}
-                onClick={handleSelectPress}
+                className={`select-btn${colorVisible ? ` companion-${active.id}` : ''}${isHolding ? ' holding' : ''}`}
+                onPointerDown={handleHoldStart}
+                onPointerUp={handleHoldEnd}
+                onPointerLeave={handleHoldEnd}
+                onPointerCancel={handleHoldEnd}
               >
-                SELECT
+                <span className="select-btn-fill" />
+                <span className="select-btn-label">SELECT</span>
               </button>
 
               {/* ── Info panel ── */}
