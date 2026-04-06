@@ -2,7 +2,7 @@
 **AI 201 — Project 1: The "Hero Faction" Screen**
 **jasmlnebryant | Spring 2026**
 
-Live URL: *(will be added after first deploy)*
+Live URL: https://jasmlnebryant.github.io/CharacterSelectScreen/
 
 ---
 
